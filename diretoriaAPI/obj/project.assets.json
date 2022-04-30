@@ -821,19 +821,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\urban\\.nuget\\packages\\": {}
+    "/home/igor/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\urban\\OneDrive\\Área de Trabalho\\diretoria\\diretoria\\diretoriaAPI\\diretoriaAPI.csproj",
+      "projectUniqueName": "/home/igor/Projects/diretoria/diretoriaAPI/diretoriaAPI.csproj",
       "projectName": "diretoriaAPI",
-      "projectPath": "C:\\Users\\urban\\OneDrive\\Área de Trabalho\\diretoria\\diretoria\\diretoriaAPI\\diretoriaAPI.csproj",
-      "packagesPath": "C:\\Users\\urban\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\urban\\OneDrive\\Área de Trabalho\\diretoria\\diretoria\\diretoriaAPI\\obj\\",
+      "projectPath": "/home/igor/Projects/diretoria/diretoriaAPI/diretoriaAPI.csproj",
+      "packagesPath": "/home/igor/.nuget/packages/",
+      "outputPath": "/home/igor/Projects/diretoria/diretoriaAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\urban\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/igor/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -884,7 +884,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
       }
     }
   }

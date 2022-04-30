@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using diretoriaAPI.Models;
 using diretoriaAPI.Infrastructure.Service;
 using Microsoft.AspNetCore.Mvc;
