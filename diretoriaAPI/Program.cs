@@ -1,4 +1,5 @@
 using diretoriaAPI.Models;
+using diretoriaAPI.Infrastructure.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
