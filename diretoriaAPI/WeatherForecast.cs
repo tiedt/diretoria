@@ -1,3 +1,5 @@
+using System;
+
 namespace diretoriaAPI;
 
 public class WeatherForecast

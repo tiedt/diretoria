@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace diretoriaAPI.Models;
 
 public class DiretoriaModel : BaseModel
 {
-    public string Name { get; set; } = null;
-    public List<FraseModel> Frases { get; set; } = null;
+    public string Name { get; set; }
+    public List<FraseModel> Frases { get; set; }
 }

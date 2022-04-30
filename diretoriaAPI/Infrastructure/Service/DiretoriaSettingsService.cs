@@ -1,14 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using diretoriaAPI.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace diretoriaAPI.Infrastructure.Service;
 
-public class DiretoriaSettingsService<T> where T : BaseModel
+public abstract class DiretoriaSettingsService<T> where T : BaseModel
 {
     private readonly IMongoCollection<T> _collection;
 
-    public DiretoriaSettingsService(
+    protected DiretoriaSettingsService(
         IOptions<DiretoriaDatabaseSettings> diretoriaDatabaseSettings)
     {
         var mongoClient = new MongoClient(
