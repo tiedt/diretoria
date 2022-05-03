@@ -1,9 +1,6 @@
 using diretoriaAPI.Infrastructure.Interface;
-using diretoriaAPI.Infrastructure.Service;
+using diretoriaAPI.Infrastructure.Repository;
 using diretoriaAPI.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<DiretoriaDatabaseSettings>(
     builder.Configuration.GetSection("DiretoriaDatabase"));
 
-builder.Services.AddTransient<IDiretoriaService, DiretoriaService>();
-builder.Services.AddTransient<IFraseService, FraseService>();
+builder.Services.AddTransient<IDiretoriaInterface, DiretoriarRepository>();
+builder.Services.AddTransient<IFraseInterface, FraseRepository>();
 
 var app = builder.Build();
 

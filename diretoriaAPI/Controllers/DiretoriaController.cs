@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using diretoriaAPI.Models;
-using diretoriaAPI.Infrastructure.Service;
 using Microsoft.AspNetCore.Mvc;
+using diretoriaAPI.Infrastructure.Interface;
+using AutoMapper;
+using diretoriaAPI.DTO;
 
 namespace diretoriaAPI.Controllers;
 
@@ -11,19 +10,23 @@ namespace diretoriaAPI.Controllers;
 [Route("api/[controller]")]
 public class DiretoriaController : ControllerBase
 {
-    private readonly DiretoriaService _diretoriaService;
+    private readonly IDiretoriaInterface _diretoriaInterface;
+    private readonly IMapper _mapper;
 
-    public DiretoriaController(DiretoriaService diretoriaService) =>
-        _diretoriaService = diretoriaService;
+    public DiretoriaController(IMapper mapper, IDiretoriaInterface diretoriaInterface)
+    {
+        _diretoriaInterface = diretoriaInterface;
+        _mapper = mapper;
+    }
 
     [HttpGet]
     public async Task<List<DiretoriaModel>> Get() =>
-        await _diretoriaService.GetAsync();
+        await _diretoriaInterface.GetAsync();
 
     [HttpGet("GetById")]
-    public async Task<ActionResult<DiretoriaModel>> Get(Guid id)
+    public async Task<ActionResult<DiretoriaModel>> Get(string id)
     {
-        var book = await _diretoriaService.GetAsync(id);
+        var book = await _diretoriaInterface.GetAsync(id);
 
         if (book is null)
         {
@@ -34,17 +37,18 @@ public class DiretoriaController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(DiretoriaModel newDiretoria)
+    public async Task<IActionResult> Post(DiretoriaDTO diretoria)
     {
-        await _diretoriaService.CreateAsync(newDiretoria);
+        var mapper = _mapper.Map<DiretoriaModel>(diretoria);
+        await _diretoriaInterface.CreateAsync(mapper);
 
-        return CreatedAtAction(nameof(Get), new { id = newDiretoria.Id }, newDiretoria);
+        return CreatedAtAction(nameof(Get), new { id = mapper.Id }, mapper);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(Guid id, DiretoriaModel updatedDiretoria)
+    public async Task<IActionResult> Update(string id, DiretoriaModel updatedDiretoria)
     {
-        var book = await _diretoriaService.GetAsync(id);
+        var book = await _diretoriaInterface.GetAsync(id);
 
         if (book is null)
         {
@@ -53,22 +57,17 @@ public class DiretoriaController : ControllerBase
 
         updatedDiretoria.Id = book.Id;
 
-        await _diretoriaService.UpdateAsync(id, updatedDiretoria);
+        await _diretoriaInterface.UpdateAsync(id, updatedDiretoria);
 
         return NoContent();
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(string id)
     {
-        var book = await _diretoriaService.GetAsync(id);
+        if (await _diretoriaInterface.GetAsync(id) is null) return NotFound();
 
-        if (book is null)
-        {
-            return NotFound();
-        }
-
-        await _diretoriaService.RemoveAsync(id);
+        await _diretoriaInterface.RemoveAsync(id);
 
         return NoContent();
     }

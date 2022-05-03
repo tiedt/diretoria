@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using diretoriaAPI.Models;
-using diretoriaAPI.Infrastructure.Service;
+using diretoriaAPI.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
+using diretoriaAPI.Infrastructure.Interface;
 
 namespace diretoriaAPI.Controllers;
 
@@ -11,19 +9,19 @@ namespace diretoriaAPI.Controllers;
 [Route("api/[controller]")]
 public class FraseController : ControllerBase
 {
-    private readonly FraseService _diretoriaService;
+    private readonly IFraseInterface _fraseService;
 
-    public FraseController(FraseService diretoriaService) =>
-        _diretoriaService = diretoriaService;
+    public FraseController(IFraseInterface fraseService) =>
+        _fraseService = fraseService;
 
     [HttpGet]
     public async Task<List<FraseModel>> Get() =>
-        await _diretoriaService.GetAsync();
+        await _fraseService.GetAsync();
 
     [HttpGet("GetById")]
-    public async Task<ActionResult<FraseModel>> Get(Guid id)
+    public async Task<ActionResult<FraseModel>> Get(string id)
     {
-        var book = await _diretoriaService.GetAsync(id);
+        var book = await _fraseService.GetAsync(id);
 
         if (book is null)
         {
@@ -36,15 +34,15 @@ public class FraseController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post(FraseModel newFrase)
     {
-        await _diretoriaService.CreateAsync(newFrase);
+        await _fraseService.CreateAsync(newFrase);
 
         return CreatedAtAction(nameof(Get), new { id = newFrase.Id }, newFrase);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(Guid id, FraseModel updatedFrase)
+    public async Task<IActionResult> Update(string id, FraseModel updatedFrase)
     {
-        var book = await _diretoriaService.GetAsync(id);
+        var book = await _fraseService.GetAsync(id);
 
         if (book is null)
         {
@@ -53,22 +51,22 @@ public class FraseController : ControllerBase
 
         updatedFrase.Id = book.Id;
 
-        await _diretoriaService.UpdateAsync(id, updatedFrase);
+        await _fraseService.UpdateAsync(id, updatedFrase);
 
         return NoContent();
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(string id)
     {
-        var book = await _diretoriaService.GetAsync(id);
+        var book = await _fraseService.GetAsync(id);
 
         if (book is null)
         {
             return NotFound();
         }
 
-        await _diretoriaService.RemoveAsync(id);
+        await _fraseService.RemoveAsync(id);
 
         return NoContent();
     }

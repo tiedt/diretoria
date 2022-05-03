@@ -8,5 +8,5 @@ public class BaseModel
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 }
