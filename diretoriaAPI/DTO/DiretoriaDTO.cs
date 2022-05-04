@@ -2,7 +2,7 @@
 {
     public class DiretoriaDTO
     {
-        public string Nome { get; set; }   
-        public List<FraseDTO> Frase { get; set; }
+        public string Name { get; set; }   
+        public List<FraseDTO> Frases { get; set; }
     }
 }

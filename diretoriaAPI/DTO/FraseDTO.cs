@@ -2,6 +2,7 @@
 {
     public class FraseDTO
     {
-        public string Frase { get; set; }
+        public string Name { get; set; }
+
     }
 }

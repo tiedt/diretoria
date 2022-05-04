@@ -17,6 +17,8 @@ builder.Services.Configure<DiretoriaDatabaseSettings>(
 builder.Services.AddTransient<IDiretoriaInterface, DiretoriarRepository>();
 builder.Services.AddTransient<IFraseInterface, FraseRepository>();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
